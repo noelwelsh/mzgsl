@@ -1,0 +1,6 @@
+*~
+doc
+doc/*
+compiled
+compiled/*
+.DS*
