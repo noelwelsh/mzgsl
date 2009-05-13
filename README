@@ -1,0 +1,3 @@
+This code provides PLT Scheme bindings to the GNU Scientific Library (GSL).  It is based off Will Farr's mzgsl.plt package. All code is released under the GPL licence, following GSL.
+
+The code in low-level contains the actual bindings to GSL. The code in the top-level directory contains the cleaner interface built on top of them.
