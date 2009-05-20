@@ -15,4 +15,8 @@
      (check-equal? (cvector-type v) _double)
      (cvector-set! v 0 100.0)
      (check-equal? (gsl_matrix_get m 0 0) 100.0)))
+
+  (test-case
+   "cvector->gsl_matrix checks contract"
+   (fail "Not implemented"))
   )

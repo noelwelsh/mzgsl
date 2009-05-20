@@ -1,6 +1,7 @@
 #lang scheme/base
 
-(require scheme/foreign
+(require (only-in scheme/contract flat-named-contract)
+         scheme/foreign
          "gsl-lib.ss"
          "gsl-util.ss")
 
@@ -28,9 +29,24 @@
    [block _pointer]
    [owner _int]))
 
+;;; Contracts
+
+(define (gsl_matrix-of-length/c l)
+  (flat-named-contract
+   (format "<matrix of length ~a>" l)
+   (lambda (obj)
+     (and (gsl_matrix? obj)
+          (= (* (gsl_matrix-cols obj) (gsl_matrix-rows obj)) l)))))
+
+(define (gsl_matrix-of-dimensions/c r c)
+  (flat-named-contract
+   (format "<~a by ~a matrix>" r c)
+   (lambda (obj)
+     (and (gsl_matrix? obj)
+          (= (gsl_matrix-rows obj) r)
+          (= (gsl_matrix-cols obj) c)))))
 
 ;;; GSL API
-
 
 (unsafe!)
 
@@ -93,6 +109,9 @@
  gsl_matrix-data
  gsl_matrix-block
  gsl_matrix-owner
+
+ gsl_matrix-of-length/c
+ gsl_matrix-of-dimensions/c
  
  gsl_matrix_alloc
  gsl_matrix_calloc

@@ -22,6 +22,14 @@
                  _double
                  (* (gsl_matrix-rows m) (gsl_matrix-cols m))))
 
+;; (cvectorof double) natural natural -> gsl_matrix
+(define (cvector->gsl_matrix v r c)
+  (make-gsl_matrix
+   r c r
+   (cvector-ptr v)
+   #f
+   0))
 
 (provide gsl_matrix->_pointer
-         gsl_matrix->cvector)
+         gsl_matrix->cvector
+         cvector->gsl_matrix)
