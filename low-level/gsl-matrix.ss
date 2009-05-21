@@ -52,24 +52,69 @@
 
 ;; Constructors
 
-(define-gsl gsl_matrix_alloc
-  (_fun _size_t _size_t -> _gsl_matrix-pointer))
+(define-gsl-unchecked (gsl_matrix_alloc _size_t _size_t -> _gsl_matrix-pointer))
 
-(define-gsl gsl_matrix_calloc
-  (_fun _size_t _size_t -> _gsl_matrix-pointer))
+(define-gsl-unchecked (gsl_matrix_calloc _size_t _size_t -> _gsl_matrix-pointer))
 
-(define-gsl gsl_matrix_free
-  (_fun _gsl_matrix-pointer -> _void))
-
-
+(define-gsl-unchecked (gsl_matrix_free _gsl_matrix-pointer -> _void))
 
 ;; Accessors and mutators
 
-(define-gsl gsl_matrix_get
-  (_fun _gsl_matrix-pointer _size_t _size_t -> _double))
+(define-gsl-unchecked (gsl_matrix_get _gsl_matrix-pointer _size_t _size_t -> _double))
 
-(define-gsl gsl_matrix_set
-  (_fun _gsl_matrix-pointer _size_t _size_t _double -> _void))
+(define-gsl-unchecked (gsl_matrix_set _gsl_matrix-pointer _size_t _size_t _double -> _void))
+
+;; Initialisers
+
+(define-gsl-unchecked (gsl_matrix_set_all _gsl_matrix-pointer _double -> _void))
+
+(define-gsl-unchecked (gsl_matrix_set_zero _gsl_matrix-pointer -> _void))
+
+(define-gsl-unchecked (gsl_matrix_set_identity _gsl_matrix-pointer -> _void))
+
+;; Reading and writing
+;; TODO
+
+;; Matrix views
+;; TODO
+
+;; Row and column views
+;; TODO
+
+;; Copying
+
+(define-gsl (gsl_matrix_memcpy _gsl_matrix-pointer _gsl_matrix-pointer))
+  ;; dest src -> error-code
+
+
+(define-gsl (gsl_matrix_swap _gsl_matrix-pointer _gsl_matrix-pointer))
+
+;; Copying rows and columns
+;; TODO
+
+;; Exchanging rows and columns 
+;; TODO
+
+;; Matrix operations
+
+;; a = a + b
+(define-gsl (gsl_matrix_add _gsl_matrix-pointer _gsl_matrix-pointer))
+
+;; a = a - b
+(define-gsl (gsl_matrix_sub _gsl_matrix-pointer _gsl_matrix-pointer))
+
+;; a = a * b (element-wise)
+(define-gsl (gsl_matrix_mul_elements _gsl_matrix-pointer _gsl_matrix-pointer))
+
+;; a = a / b (element-wise)
+(define-gsl (gsl_matrix_div_elements _gsl_matrix-pointer _gsl_matrix-pointer))
+
+;; a = s * a
+(define-gsl (gsl_matrix_scale _gsl_matrix-pointer _double))
+
+;; a = x + a
+(define-gsl (gsl_matrix_add_constant _gsl_matrix-pointer _double))
+
 
 ;; etc...
 
@@ -117,5 +162,19 @@
  gsl_matrix_calloc
  gsl_matrix_free
 
+ gsl_matrix_set_all
+ gsl_matrix_set_zero
+ gsl_matrix_set_identity
+ 
  gsl_matrix_get
- gsl_matrix_set)
+ gsl_matrix_set
+
+ gsl_matrix_memcpy
+ gsl_matrix_swap
+
+ gsl_matrix_add
+ gsl_matrix_sub
+ gsl_matrix_mul_elements
+ gsl_matrix_div_elements
+ gsl_matrix_scale
+ gsl_matrix_add_constant)

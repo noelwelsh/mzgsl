@@ -1,7 +1,17 @@
 #lang scheme/base
 
-(require (planet schematics/schemeunit:3/test))
-(require "gsl-matrix.ss")
+(require scheme/contract
+         (planet schematics/schemeunit:3/test)
+         "gsl-matrix.ss")
+
+;; For testing the contracts
+(define/contract (matrix-of-length l)
+  (->d ([l integer?]) () [_ (-> (gsl_matrix-of-length/c l) any)]) 
+  (lambda (m) m))
+
+(define/contract (matrix-of-dimensions r c)
+  (->d ([r integer?] [c integer?]) () [_ (-> (gsl_matrix-of-dimensions/c r c) any)])
+  (lambda (m) m))
 
 (define/provide-test-suite gsl-matrix-tests
 
@@ -17,11 +27,22 @@
 
   (test-case
    "gsl_matrix-of-length/c"
-   (let ([m (gsl_matrix_alloc 4 4)])
+   (let ([m (gsl_matrix_alloc 2 4)])
      (check-exn exn:fail:contract?
                 (lambda ()
-                  ((gsl_matrix-of-length/c 10) m)))
+                  ((matrix-of-length 10) m)))
      (check-not-exn
-      (lambda () ((gsl_matrix-of-length/c 16) m)))))
+      (lambda () ((matrix-of-length 8) m)))
+     (gsl_matrix_free m)))
+
+  (test-case
+   "gsl_matrix-of-dimensions/c"
+   (let ([m (gsl_matrix_alloc 2 4)])
+     (check-exn exn:fail:contract?
+                (lambda ()
+                  ((matrix-of-dimensions 4 2) m)))
+     (check-not-exn
+      (lambda () ((matrix-of-dimensions 2 4) m)))
+     (gsl_matrix_free m)))
 
   )

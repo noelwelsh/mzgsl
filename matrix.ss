@@ -6,13 +6,14 @@
 
 (unsafe!)
 
-(define (make-matrix rows cols)
+(define (make-matrix rows cols [fill 0])
   (define ptr (malloc _double (* rows cols)))
-  (memset ptr 0 (* rows cols) _double)
-  (make-gsl_matrix
-   rows cols rows
-   ptr
-   #f 0))
+  (define m (make-gsl_matrix
+             rows cols rows
+             ptr
+             #f 0))
+  (matrix-fill! m fill)
+  m)
 
 ;;; API
 
@@ -24,6 +25,10 @@
 
 (define (matrix-set! m r c v)
   (gsl_matrix_set m r c (exact->inexact v)))
+
+(define matrix-fill! gsl_matrix_set_all)
+(define matrix-zero! gsl_matrix_set_zero)
+(define matrix-identity! gsl_matrix_set_identity)
 
 (define (matrix-set-upper-triangle! m v)
   (define r (matrix-rows m))
@@ -40,4 +45,8 @@
  matrix-ref
  matrix-set!
 
+ matrix-fill!
+ matrix-identity!
+ matrix-zero!
+ 
  matrix-set-upper-triangle!)
