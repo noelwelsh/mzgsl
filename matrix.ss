@@ -1,28 +1,23 @@
 #lang scheme/base
 
-(require scheme/foreign
+(require scheme/contract
          "low-level/gsl-matrix.ss")
 
 
-(unsafe!)
+;;; API
 
-(define (make-matrix rows cols [fill 0])
-  (define ptr (malloc _double (* rows cols)))
-  (define m (make-gsl_matrix
-             rows cols rows
-             ptr
-             #f 0))
+(define (make-matrix r c [fill 0])
+  (define m (gsl_matrix-malloc r c))
   (matrix-fill! m fill)
   m)
 
-;;; API
-
+(define matrix? gsl_matrix?)
 (define matrix-rows gsl_matrix-rows)
 (define matrix-cols gsl_matrix-cols)
 
-(define (matrix-ref m r c)
-  (gsl_matrix_get m r c))
+(define matrix-of-dimensions/c gsl_matrix-of-dimensions/c)
 
+(define matrix-ref gsl_matrix_get)
 (define (matrix-set! m r c v)
   (gsl_matrix_set m r c (exact->inexact v)))
 
@@ -40,9 +35,9 @@
 
 (provide
  make-matrix
+ matrix?
  matrix-rows
  matrix-cols
- matrix-ref
  matrix-set!
 
  matrix-fill!
@@ -50,3 +45,10 @@
  matrix-zero!
  
  matrix-set-upper-triangle!)
+
+(provide/contract
+ [matrix-ref (->d ([m (matrix-of-dimensions/c r c)]
+                   [r natural-number/c]
+                   [c natural-number/c])
+                  ()
+                  any)])

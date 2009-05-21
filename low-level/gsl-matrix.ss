@@ -29,6 +29,12 @@
    [block _pointer]
    [owner _int]))
 
+(define (gsl_matrix-malloc r c)
+  (define ptr (malloc _double (* r c)))
+  (define m (make-gsl_matrix r c r ptr #f 0))
+  m)
+
+
 ;;; Contracts
 
 (define (gsl_matrix-of-length/c l)
@@ -62,11 +68,11 @@
 
 (define-gsl-unchecked (gsl_matrix_get _gsl_matrix-pointer _size_t _size_t -> _double))
 
-(define-gsl-unchecked (gsl_matrix_set _gsl_matrix-pointer _size_t _size_t _double -> _void))
+(define-gsl-unchecked (gsl_matrix_set _gsl_matrix-pointer _size_t _size_t _double* -> _void))
 
 ;; Initialisers
 
-(define-gsl-unchecked (gsl_matrix_set_all _gsl_matrix-pointer _double -> _void))
+(define-gsl-unchecked (gsl_matrix_set_all _gsl_matrix-pointer _double* -> _void))
 
 (define-gsl-unchecked (gsl_matrix_set_zero _gsl_matrix-pointer -> _void))
 
@@ -110,10 +116,10 @@
 (define-gsl (gsl_matrix_div_elements _gsl_matrix-pointer _gsl_matrix-pointer))
 
 ;; a = s * a
-(define-gsl (gsl_matrix_scale _gsl_matrix-pointer _double))
+(define-gsl (gsl_matrix_scale _gsl_matrix-pointer _double*))
 
 ;; a = x + a
-(define-gsl (gsl_matrix_add_constant _gsl_matrix-pointer _double))
+(define-gsl (gsl_matrix_add_constant _gsl_matrix-pointer _double*))
 
 
 ;; etc...
@@ -155,6 +161,8 @@
  gsl_matrix-block
  gsl_matrix-owner
 
+ gsl_matrix-malloc
+ 
  gsl_matrix-of-length/c
  gsl_matrix-of-dimensions/c
  

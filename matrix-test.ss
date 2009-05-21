@@ -9,7 +9,11 @@
 
   (test-case
    "matrix-ref raises contract error when r or c outside domain"
-   (fail "Not implemented"))
+   (let ([m (make-matrix 4 3)])
+     (check-exn exn:fail:contract?
+                (lambda () (matrix-ref m 3 4)))
+     (check-exn exn:fail:contract?
+                (lambda () (matrix-ref m 5 2)))))
 
   (test-case
    "matrix-set! raises contract error when r or c outside domain"
