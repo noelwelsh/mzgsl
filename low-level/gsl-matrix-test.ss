@@ -26,6 +26,16 @@
       (gsl_matrix_free m))))
 
   (test-case
+   "gsl_matrix-unsafe-ref"
+   (let ([m (gsl_matrix_calloc 4 4)])
+     (after
+      (check-equal? (gsl_matrix-unsafe-ref m 10) 0.0)
+      (gsl_matrix_set m 2 2 10.0)
+      (check-equal? (gsl_matrix_unsafe-ref m 10) 10.0)
+
+      (gsl_matrix_free m))))
+
+  (test-case
    "gsl_matrix-of-length/c"
    (let ([m (gsl_matrix_alloc 2 4)])
      (check-exn exn:fail:contract?

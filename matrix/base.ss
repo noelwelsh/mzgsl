@@ -1,7 +1,7 @@
 #lang scheme/base
 
 (require scheme/contract
-         "low-level/gsl-matrix.ss")
+         "../low-level/gsl-matrix.ss")
 
 
 ;;; API
@@ -10,6 +10,21 @@
   (define m (gsl_matrix-malloc r c))
   (matrix-fill! m fill)
   m)
+
+(define (matrix r c . elts)
+  (define l (length elts))
+  (unless (= l (* r c))
+    (raise-mismatch-error
+     'matrix
+     (format "Expected ~a elements, but given ~a elements to construct matrix" (* r c) l)
+     elts))
+  (let ([m (make-matrix r c)])
+    (for*/fold ([elts elts])
+               ([i (in-range r)]
+                [j (in-range c)])
+      (matrix-set! m i j (car elts))
+      (cdr elts))
+    m))
 
 (define matrix? gsl_matrix?)
 (define matrix-rows gsl_matrix-rows)
@@ -30,11 +45,24 @@
   (for* ([i (in-range r)]
          [j (in-range (add1 i) c)])
         (matrix-set! m i j v)))
-        
+
+(define (matrix= m1 m2 [e 0.0])
+  (define is=
+    (if (zero? e)
+        =
+        (lambda (a b) (<= (abs (- a b)) e))))
+  (and (= (matrix-rows m1) (matrix-rows m2))
+       (= (matrix-cols m1) (matrix-cols m2))
+       (for*/and ([r (in-range (matrix-rows m1))]
+                  [c (in-range (matrix-cols m2))])
+         (is= (matrix-ref m1 r c)
+              (matrix-ref m2 r c)))))
+
 ;; API to implement
 
 ;; matrix-map
-;; matrix= m1 m2 e
+
+
 ;; vector->matrix v
 ;; display-matrix
 ;; matrix r c elt ...
@@ -71,10 +99,13 @@
 
 (provide
  make-matrix
+ matrix
  matrix?
  matrix-rows
  matrix-cols
-
+ 
+ matrix=
+ 
  matrix-fill!
  matrix-identity!
  matrix-zero!

@@ -29,10 +29,21 @@
    [block _pointer]
    [owner _int]))
 
+;;; Useful functions
+
 (define (gsl_matrix-malloc r c)
   (define ptr (malloc _double (* r c)))
   (define m (make-gsl_matrix r c r ptr #f 0))
   m)
+
+;; gsl_matrix-unsafe-ref : gsl_matrix natural -> number
+;;
+;; Treat the matrix as a continuous vector of elements. This
+;; works for any matrices we create, as we always create
+;; continous matrices (i.e. tda = rows) but in general this
+;; can be incorrect. We don't do any range checking either.
+(define (gsl_matrix-unsafe-ref m offset)
+  (ptr-ref (gsl_matrix-data m) _double offset))
 
 
 ;;; Contracts
@@ -162,6 +173,7 @@
  gsl_matrix-owner
 
  gsl_matrix-malloc
+ gsl_matrix-unsafe-ref
  
  gsl_matrix-of-length/c
  gsl_matrix-of-dimensions/c
