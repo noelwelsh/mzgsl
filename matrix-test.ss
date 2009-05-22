@@ -17,11 +17,17 @@
 
   (test-case
    "matrix-set! raises contract error when r or c outside domain"
-   (fail "Not implemented"))
+   (let ([m (make-matrix 4 3)])
+     (check-exn exn:fail:contract?
+                (lambda () (matrix-set! m 3 4 0.0)))
+     (check-exn exn:fail:contract?
+                (lambda () (matrix-set! m 5 2 0.0)))))
 
   (test-case
    "matrix-set! raises contract error when value outside domain"
-   (fail "Not implemented"))
+   (let ([m (make-matrix 4 3)])
+     (check-exn exn:fail:contract?
+                (lambda () (matrix-set! m 3 4 #f)))))
   
   (test-case
    "matrix-set-upper-triangle!"

@@ -24,6 +24,12 @@
 
 ;; (cvectorof double) natural natural -> gsl_matrix
 (define (cvector->gsl_matrix v r c)
+  (unless (= (cvector-length v) (* r c))
+    (raise-mismatch-error
+     'cvector->gsl_matrix
+     (format "Expected cvector of length ~a but received cvector of length ~a"
+             (* r c) (cvector-length v))
+     v))
   (make-gsl_matrix
    r c r
    (cvector-ptr v)

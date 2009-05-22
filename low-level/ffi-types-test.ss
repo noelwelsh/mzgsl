@@ -18,5 +18,7 @@
 
   (test-case
    "cvector->gsl_matrix checks contract"
-   (fail "Not implemented"))
+   (let ([v (make-cvector _double 10)])
+     (check-exn exn:fail:contract?
+                (lambda () (cvector->gsl_matrix v 10 10)))))
   )

@@ -2,7 +2,8 @@
 
 (require (for-syntax scheme/base)
          scheme/foreign
-         "gsl-lib.ss")
+         "gsl-lib.ss"
+         "gsl-error.ss")
 
 (unsafe!)
 
@@ -37,10 +38,7 @@
              (define result (unchecked-name param ...))
              (unless (zero? result)
                (let ([reason (bytes->string/utf-8 (gsl_strerror result))])
-                 (raise
-                  (make-exn:fail
-                   reason
-                   (current-continuation-marks)))))))]))
+                 (raise-gsl-error result reason (current-continuation-marks))))))]))
 
 
 (define-gsl-unchecked (gsl_strerror _int -> _bytes))

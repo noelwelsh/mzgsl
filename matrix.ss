@@ -18,8 +18,7 @@
 (define matrix-of-dimensions/c gsl_matrix-of-dimensions/c)
 
 (define matrix-ref gsl_matrix_get)
-(define (matrix-set! m r c v)
-  (gsl_matrix_set m r c (exact->inexact v)))
+(define matrix-set! gsl_matrix_set)
 
 (define matrix-fill! gsl_matrix_set_all)
 (define matrix-zero! gsl_matrix_set_zero)
@@ -38,7 +37,6 @@
  matrix?
  matrix-rows
  matrix-cols
- matrix-set!
 
  matrix-fill!
  matrix-identity!
@@ -47,8 +45,18 @@
  matrix-set-upper-triangle!)
 
 (provide/contract
- [matrix-ref (->d ([m (matrix-of-dimensions/c r c)]
-                   [r natural-number/c]
-                   [c natural-number/c])
+ [matrix-ref (->d ([m matrix?]
+                   [i (and/c natural-number/c
+                             (</c (matrix-rows m)))]
+                   [j (and/c natural-number/c
+                             (</c (matrix-cols m)))])
                   ()
-                  any)])
+                  any)]
+ [matrix-set! (->d ([m matrix?]
+                    [i (and/c natural-number/c
+                              (</c (matrix-rows m)))]
+                    [j (and/c natural-number/c
+                              (</c (matrix-cols m)))]
+                    [x any/c])
+                   ()
+                   any)])
