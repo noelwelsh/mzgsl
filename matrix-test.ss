@@ -48,8 +48,8 @@
   (test-case
    "matrix= with epsilon"
    (check (cut matrix= <> <> 0.1)
-          (m 2 2 1    2    3    4)
-          (m 2 2 1.09 1.91 2.99 4.05)))
+          (matrix 2 2 1    2    3    4)
+          (matrix 2 2 1.09 1.91 2.99 4.05)))
 
   (test-case
    "vector->matrix creates correct matrices"
