@@ -1,6 +1,8 @@
 #lang scheme/base
 
-(require "gsl-util.ss")
+(require scheme/foreign
+         "gsl-matrix.ss"
+         "gsl-util.ss")
 
 (define _CBLAS_INDEX _size_t)
 
@@ -39,4 +41,4 @@
  _CBLAS_DIAG
  _CBLAS_SIDE
 
- gsl_blas_gemm)
+ gsl_blas_dgemm)
