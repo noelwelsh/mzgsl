@@ -110,6 +110,8 @@
 ;; Exchanging rows and columns 
 ;; TODO
 
+(define-gsl (gsl_matrix_transpose _gsl_matrix-pointer))
+
 ;; Matrix operations
 
 ;; a = a + b
@@ -190,6 +192,8 @@
  gsl_matrix_memcpy
  gsl_matrix_swap
 
+ gsl_matrix_transpose
+ 
  gsl_matrix_add
  gsl_matrix_sub
  gsl_matrix_mul_elements

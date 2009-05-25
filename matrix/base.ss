@@ -62,16 +62,11 @@
 
 ;; matrix-map
 
-
 ;; vector->matrix v
-;; matrix-copy
 ;; display-matrix
-;; matrix r c elt ...
-;; matrix-transpose m
 ;; matrix- m1 m2
 ;; matrix+ m1 m2
 ;; matrix* m1 m2
-;; matrix-product m1 m2
 ;; matrix/s m s
 ;; matrix-s m s
 ;; matrix+s m s

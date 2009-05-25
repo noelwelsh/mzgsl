@@ -4,10 +4,12 @@
          "base-test.ss"
          "comprehensions-test.ss"
          "constructors-test.ss"
-         "blas-test.ss")
+         "blas-test.ss"
+         "general-test.ss")
 
 (define/provide-test-suite all-tests
   base-tests
   comprehensions-tests
   constructors-tests
-  blas-tests)
+  blas-tests
+  general-tests)

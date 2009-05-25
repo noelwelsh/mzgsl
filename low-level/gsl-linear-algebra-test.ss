@@ -45,14 +45,4 @@
    (check-= (gsl_matrix_get m 2 1) 5 e)
    (check-= (gsl_matrix_get m 2 2) 6 e))
 
-  (test-case
-   "gsl_linalg_cholesky_invert"
-   (initialise-m!)
-   (gsl_linalg_cholesky_decomp m)
-   (gsl_linalg_cholesky_invert m)
-   ;; (define a (matrix-copy m))
-   ;; (initialise-m!)
-   ;; (check matrix= (matrix-multiply m a) (matrix-identity 3 3))
-   ;; For this I need CBLAS binding
-   (fail "Not implemented"))
   )

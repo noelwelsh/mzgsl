@@ -59,6 +59,4 @@
    (check-false (matrix= (matrix 2 2 1 2 3 4) (matrix 2 2 1 2 0 4)))
    (check-false (matrix= (matrix 2 2 1 2 3 4) (matrix 2 2 1 2 3 0))))
 
-
-
   )
