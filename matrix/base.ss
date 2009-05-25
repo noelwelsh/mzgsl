@@ -16,7 +16,7 @@
   (unless (= l (* r c))
     (raise-mismatch-error
      'matrix
-     (format "Expected ~a elements, but given ~a elements to construct matrix" (* r c) l)
+     (format "Expected ~a elements, but given ~a elements to construct matrix: " (* r c) l)
      elts))
   (let ([m (make-matrix r c)])
     (for*/fold ([elts elts])
@@ -64,6 +64,7 @@
 
 
 ;; vector->matrix v
+;; matrix-copy
 ;; display-matrix
 ;; matrix r c elt ...
 ;; matrix-transpose m

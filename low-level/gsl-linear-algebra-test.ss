@@ -54,5 +54,5 @@
    ;; (initialise-m!)
    ;; (check matrix= (matrix-multiply m a) (matrix-identity 3 3))
    ;; For this I need CBLAS binding
-   (fail "Not implemented")
+   (fail "Not implemented"))
   )

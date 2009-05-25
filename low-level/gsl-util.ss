@@ -7,6 +7,8 @@
 
 (unsafe!)
 
+(define _size_t _int)
+
 ;; (define-gsl name type ... -> type)
 ;;
 ;; Define a GSL function that does not have its return value
@@ -51,5 +53,6 @@
 ;; before any GSL functions are called, so we do it here.
 (gsl_set_error_handler_off)
 
-(provide define-gsl-unchecked
+(provide _size_t
+         define-gsl-unchecked
          define-gsl)

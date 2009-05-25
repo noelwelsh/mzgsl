@@ -8,8 +8,6 @@
 
 ;;; Type definitions
 
-(define _size_t _int)
-
 (define-cstruct _gsl_block
   ([size _size_t]
    [data (_f64vector i)]))
@@ -33,7 +31,7 @@
 
 (define (gsl_matrix-malloc r c)
   (define ptr (malloc _double (* r c)))
-  (define m (make-gsl_matrix r c r ptr #f 0))
+  (define m (make-gsl_matrix r c c ptr #f 0))
   m)
 
 ;; gsl_matrix-unsafe-ref : gsl_matrix natural -> number

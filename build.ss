@@ -10,9 +10,13 @@
   (compile)
   (action:test "all-tests.ss" 'all-tests))
 
+(define-task stress-test
+  (compile)
+  (action:test "stress-tests.ss" 'stress-tests))
+
 (define-task all
   (test compile))
-
+  
 (define-task default
   (all))
 
