@@ -61,4 +61,10 @@
      (matrix-cholesky-invert! m2)
      (check-matrix= (matrix-product m2 m) id e)))
 
+  (test-case
+   "matrix-cholesky-determinant"
+   (initialise-m!)
+   (matrix-cholesky! m)
+   (check-= (matrix-cholesky-determinant m) (* 1 4 6 1 4 6) e))
+
   )
