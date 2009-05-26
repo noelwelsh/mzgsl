@@ -8,6 +8,16 @@
 (define matrix-cholesky! gsl_linalg_cholesky_decomp)
 (define matrix-cholesky-invert! gsl_linalg_cholesky_invert)
 
+(define (matrix-cholesky m)
+  (define m2 (matrix-copy m))
+  (matrix-cholesky! m2)
+  m2)
+
+(define (matrix-cholesky-invert m)
+  (define m2 (matrix-copy m))
+  (matrix-cholesky-invert! m2)
+  m2)
+
 ;; (matrix -> number)
 ;;
 ;; Calculate the determinant of a (symmetric positive
@@ -24,4 +34,8 @@
 (provide
  matrix-cholesky!
  matrix-cholesky-invert!
+
+ matrix-cholesky
+ matrix-cholesky-invert
+ 
  matrix-cholesky-determinant)

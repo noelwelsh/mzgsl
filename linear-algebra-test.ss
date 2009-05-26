@@ -62,6 +62,15 @@
      (check-matrix= (matrix-product m2 m) id e)))
 
   (test-case
+   "matrix-cholesky and matrix-cholesky-invert"
+   (initialise-m!)
+   (let* ([ch (matrix-cholesky m)]
+          [id (make-matrix 3 3)]
+          [inv (matrix-cholesky-invert ch)])
+     (matrix-identity! id)
+     (check-matrix= (matrix-product inv m) id e)))
+
+  (test-case
    "matrix-cholesky-determinant"
    (initialise-m!)
    (matrix-cholesky! m)
