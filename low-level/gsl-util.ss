@@ -40,7 +40,7 @@
              (define result (unchecked-name param ...))
              (unless (zero? result)
                (let ([reason (bytes->string/utf-8 (gsl_strerror result))])
-                 (raise-gsl-error result reason (current-continuation-marks))))))]))
+                 (raise-gsl-error (quote name) result reason (current-continuation-marks))))))]))
 
 
 (define-gsl-unchecked (gsl_strerror _int -> _bytes))

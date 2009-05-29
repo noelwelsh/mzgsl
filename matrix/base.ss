@@ -58,12 +58,19 @@
          (is= (matrix-ref m1 r c)
               (matrix-ref m2 r c)))))
 
+(define (display-matrix m)
+  (display "#matrix(")
+  (printf "~a ~a " (matrix-rows m) (matrix-cols m))
+  (for* ([r (in-range (matrix-rows m))]
+         [c (in-range (matrix-cols m))])
+       (display " ") (display (matrix-ref m r c)))
+  (display ")"))
+
 ;; API to implement
 
 ;; matrix-map
 
 ;; vector->matrix v
-;; display-matrix
 ;; matrix- m1 m2
 ;; matrix+ m1 m2
 ;; matrix* m1 m2
@@ -99,6 +106,7 @@
  matrix?
  matrix-rows
  matrix-cols
+ display-matrix
  
  matrix=
  

@@ -40,14 +40,15 @@
 ;;   GSL_EOF      = 32   /* end of file */
 ;; } ;
 
-(define (raise-gsl-error code reason continuation-marks)
-  (case
+(define (raise-gsl-error name code reason continuation-marks)
+  (define msg (format "~a: ~a (Error code ~a)" name reason code))
+  (case code
    [(1 2 3 4 9 13 19 20)
-    (raise (make-exn:fail:contract reason continuation-marks))]
+    (raise (make-exn:fail:contract msg continuation-marks))]
    [(12)
-    (raise (make-exn:fail:contract:divide-by-zero reason continuation-marks))]
+    (raise (make-exn:fail:contract:divide-by-zero msg continuation-marks))]
    [else
-    (raise (make-exn:fail reason continuation-marks))]))
+    (raise (make-exn:fail msg continuation-marks))]))
 
 (provide
  raise-gsl-error)
