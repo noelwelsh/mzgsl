@@ -68,3 +68,17 @@
   (_fun _gsl-root-fsolver-pointer -> _double))
 (define-gsl-roots gsl-root-fsolver-x-upper
   (_fun _gsl-root-fsolver-pointer -> _double))
+
+(define-gsl-roots gsl-root-fdfsolver-set!
+  (_fun _gsl-root-fdfsolver-pointer _gsl-function-fdf-pointer _double* -> _int))
+(define-gsl-roots gsl-root-fdfsolver-iterate!
+  (_fun _gsl-root-fdfsolver-pointer -> _int))
+(define-gsl-roots gsl-root-fdfsolver-root
+  (_fun _gsl-root-fdfsolver-pointer -> _double))
+
+(define-gsl-roots gsl-root-test-interval
+  (_fun _double* _double* _double* _double* -> _bool))
+(define-gsl-roots gsl-root-test-residual
+  (_fun _double* _double* -> _bool))
+(define-gsl-roots gsl-root-test-delta
+  (_fun _double* _double* _double* _double* -> _bool))
