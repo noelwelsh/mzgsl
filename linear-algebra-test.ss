@@ -83,7 +83,6 @@
    (define s (box 0))
    (initialise-m!)
    (matrix-lu! m p s)
-   (display-matrix m)
    (check-eq? (unbox s) 1)
    ;; Comparing against output from Matlab
    (check-= (matrix-ref m 0 0) 3 e)
