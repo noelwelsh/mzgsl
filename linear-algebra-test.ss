@@ -119,4 +119,10 @@
      (check-eq? s 1)
      (matrix-identity! id)
      (check-matrix= (matrix-product i m) id e)))
+
+  (test-case
+   "matrix-lu-determinant"
+   (initialise-m!)
+   (let-values (([lu p s] (matrix-lu m)))
+     (check-= (matrix-lu-determinant lu s) (* 1 4 6 1 4 6) e)))
   )

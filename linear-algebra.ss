@@ -47,6 +47,8 @@
   (matrix-lu-invert! lu p m)
   m)
 
+(define matrix-lu-determinant gsl_linalg_LU_det)
+
 (provide
  matrix-cholesky!
  matrix-cholesky-invert!
@@ -60,4 +62,5 @@
  matrix-lu-invert!
 
  matrix-lu
- matrix-lu-invert)
+ matrix-lu-invert
+ matrix-lu-determinant)
