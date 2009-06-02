@@ -51,7 +51,11 @@
 ;; don't need error handling and turn it off (as recommended
 ;; by the GSL documentation). We need this to occur globally
 ;; before any GSL functions are called, so we do it here.
-(gsl_set_error_handler_off)
+;;
+;; We catch the return value to stop it printing when this
+;; module is evaluated.
+(let ([_ (gsl_set_error_handler_off)])
+  (void))
 
 (provide _size_t
          define-gsl-unchecked
