@@ -31,6 +31,9 @@
   (* product product))
 
 
+(define matrix-lu! gsl_linalg_LU_decomp)
+  
+
 (provide
  matrix-cholesky!
  matrix-cholesky-invert!
@@ -38,4 +41,6 @@
  matrix-cholesky
  matrix-cholesky-invert
  
- matrix-cholesky-determinant)
+ matrix-cholesky-determinant
+
+ matrix-lu!)

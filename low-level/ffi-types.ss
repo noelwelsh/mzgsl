@@ -36,6 +36,7 @@
    #f
    0))
 
-(provide gsl_matrix->_pointer
-         gsl_matrix->cvector
-         cvector->gsl_matrix)
+(provide
+ gsl_matrix->_pointer
+ gsl_matrix->cvector
+ cvector->gsl_matrix)

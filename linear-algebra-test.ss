@@ -2,6 +2,7 @@
 
 (require (planet schematics/schemeunit:3/test)
          "matrix.ss"
+         "permutations.ss"
          "linear-algebra.ss")
 
 (define e 0.00001)
@@ -76,4 +77,25 @@
    (matrix-cholesky! m)
    (check-= (matrix-cholesky-determinant m) (* 1 4 6 1 4 6) e))
 
+  (test-case
+   "matrix-lu!"
+   (define p (make-permutation (matrix-rows m)))
+   (define s (box 0))
+   (initialise-m!)
+   (matrix-lu! m p s)
+   (display-matrix m)
+   (check-eq? (unbox s) 1)
+   ;; Comparing against output from Matlab
+   (check-= (matrix-ref m 0 0) 3 e)
+   (check-= (matrix-ref m 0 1) 26 e)
+   (check-= (matrix-ref m 0 2) 70 e)
+   
+   (check-= (matrix-ref m 1 0) 1/3 e)
+   (check-= (matrix-ref m 1 1) -20/3 e)
+   (check-= (matrix-ref m 1 2) -61/3 e)
+   
+   (check-= (matrix-ref m 2 0) 2/3 e)
+   (check-= (matrix-ref m 2 1) -4/10 e)
+   (check-= (matrix-ref m 2 2) -28.8 e))
+  
   )
