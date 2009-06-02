@@ -1,7 +1,8 @@
 #lang scheme/base
 
 (require "low-level/gsl-linear-algebra.ss"
-         "matrix.ss")
+         "matrix.ss"
+         "permutations.ss")
 
 ;;; API
 
@@ -32,7 +33,19 @@
 
 
 (define matrix-lu! gsl_linalg_LU_decomp)
-  
+(define matrix-lu-invert! gsl_linalg_LU_invert)
+
+(define (matrix-lu m)
+  (define p (make-permutation (matrix-rows m)))
+  (define s (box 0))
+  (define m2 (matrix-copy m))
+  (matrix-lu! m2 p s)
+  (values m2 p (unbox s)))
+
+(define (matrix-lu-invert lu p)
+  (define m (make-matrix (matrix-rows lu) (matrix-cols lu)))
+  (matrix-lu-invert! lu p m)
+  m)
 
 (provide
  matrix-cholesky!
@@ -43,4 +56,8 @@
  
  matrix-cholesky-determinant
 
- matrix-lu!)
+ matrix-lu!
+ matrix-lu-invert!
+
+ matrix-lu
+ matrix-lu-invert)

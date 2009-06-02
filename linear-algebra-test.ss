@@ -96,5 +96,27 @@
    (check-= (matrix-ref m 2 0) 2/3 e)
    (check-= (matrix-ref m 2 1) -4/10 e)
    (check-= (matrix-ref m 2 2) -28.8 e))
-  
+
+  (test-case
+   "matrix-lu-invert"
+   (define p (make-permutation (matrix-rows m)))
+   (define s (box 0))
+   (define i (make-matrix (matrix-rows m) (matrix-rows m)))
+   (define id (make-matrix (matrix-rows m) (matrix-rows m)))
+   (matrix-identity! id)
+   (initialise-m!)
+   (matrix-lu! m p s)
+   (matrix-lu-invert! m p i)
+   (initialise-m!)
+   (check-matrix= (matrix-product i m) id e))
+
+  (test-case
+   "matrix-lu and matrix-lu-invert"
+   (initialise-m!)
+   (let*-values (([id] (make-matrix (matrix-rows m) (matrix-rows m)))
+                 ([lu p s] (matrix-lu m))
+                 ([i] (matrix-lu-invert lu p)))
+     (check-eq? s 1)
+     (matrix-identity! id)
+     (check-matrix= (matrix-product i m) id e)))
   )
