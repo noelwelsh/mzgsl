@@ -98,7 +98,7 @@
    (check-= (matrix-ref m 2 2) -28.8 e))
 
   (test-case
-   "matrix-lu-invert"
+   "matrix-lu-invert!"
    (define p (make-permutation (matrix-rows m)))
    (define s (box 0))
    (define i (make-matrix (matrix-rows m) (matrix-rows m)))
@@ -125,4 +125,12 @@
    (initialise-m!)
    (let-values (([lu p s] (matrix-lu m)))
      (check-= (matrix-lu-determinant lu s) (* 1 4 6 1 4 6) e)))
+
+  (test-case
+   "matrix-invert"
+   (initialise-m!)
+   (let ([id (make-matrix (matrix-rows m) (matrix-rows m))]
+         [i (matrix-invert m)])
+     (matrix-identity! id)
+     (check-matrix= (matrix-product i m) id e)))
   )

@@ -49,6 +49,11 @@
 
 (define matrix-lu-determinant gsl_linalg_LU_det)
 
+;; Generic matrix inverse procedure using the LU decomposition
+(define (matrix-invert m)
+  (define-values (lu p s) (matrix-lu m))
+  (matrix-lu-invert lu p))
+
 (provide
  matrix-cholesky!
  matrix-cholesky-invert!
@@ -63,4 +68,6 @@
 
  matrix-lu
  matrix-lu-invert
- matrix-lu-determinant)
+ matrix-lu-determinant
+
+ matrix-invert)
