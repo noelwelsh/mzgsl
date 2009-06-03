@@ -74,6 +74,7 @@
 ;; matrix- m1 m2
 ;; matrix+ m1 m2
 ;; matrix* m1 m2
+;; matrix/ m1 m2
 ;; matrix/s m s
 ;; matrix-s m s
 ;; matrix+s m s
