@@ -28,7 +28,7 @@
    (params _pointer)))
 
 (define-cstruct _gsl-function-fdf
-  ((f (_fun _double _pointer -> _double))
-   (df (_fun _double _pointer -> _double))
-   (f-df (_fun _double _pointer _pointer _pointer -> _void))
+  ((f (_fun _double* _pointer -> _double*))
+   (df (_fun _double* _pointer -> _double*))
+   (f-df (_fun _double* _pointer _pointer _pointer -> _void))
    (params _pointer)))

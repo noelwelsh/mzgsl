@@ -81,4 +81,4 @@
 (define-gsl-roots gsl-root-test-residual
   (_fun _double* _double* -> _bool))
 (define-gsl-roots gsl-root-test-delta
-  (_fun _double* _double* _double* _double* -> _bool))
+  (_fun _double* _double* _double* _double* -> (x : _int) -> (= x 0)))
