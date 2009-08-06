@@ -58,4 +58,18 @@
     (for/list ([i (in-range 3)])
               (gslvector-ref v i))
     (list 0. 5. 0.)))
+
+  (test-case
+   "vector->gslvector creates expected vector"
+   (define v (vector->gslvector (vector 4. 3. 2. 1.)))
+   (check-pred gslvector? v)
+   (check-equal?
+    (for/list ([i (in-range (gslvector-length v))])
+              (gslvector-ref v i))
+    (list 4. 3. 2. 1.)))
+  
+  (test-case
+   "vector->gslvector and gslvector->vector are inverses"
+   (define v (vector 0. 1. 2. 3. 4.))
+   (check-equal? (gslvector->vector (vector->gslvector v)) v))
   )

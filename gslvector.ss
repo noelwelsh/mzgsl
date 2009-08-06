@@ -40,6 +40,23 @@
 
 (define gslvector-fill! gsl_vector_set_all)
 
+
+(define (vector->gslvector v)
+  (define l (vector-length v))
+  (define gslv (make-gslvector l))
+  (for ([x (in-vector v)]
+        [i (in-naturals)])
+    (gslvector-set! gslv i x))
+  gslv)
+
+(define (gslvector->vector gslv)
+  (define l (gslvector-length gslv))
+  (define v (make-vector l))
+  (for ([i (in-range l)])
+    (vector-set! v i (gslvector-ref gslv i)))
+  v)
+
+
 (provide
  make-gslvector
  gslvector
@@ -49,4 +66,7 @@
  gslvector-ref
  gslvector-set!
 
- gslvector-fill!)
+ gslvector-fill!
+
+ vector->gslvector
+ gslvector->vector)
