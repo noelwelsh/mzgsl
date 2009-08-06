@@ -105,6 +105,8 @@
   gsl_vector-block
   gsl_vector-owner
 
+  gsl_vector-malloc
+  
   gsl_vector_alloc
   gsl_vector_calloc
   gsl_vector_free
