@@ -19,7 +19,8 @@
 
 (require scheme/foreign
          "gsl-util.ss"
-         "gsl-matrix.ss")
+         "gsl-matrix.ss"
+         "gsl-vector.ss")
 
 (define _gsl_multifit_linear_workspace _pointer)
 
@@ -28,7 +29,7 @@
   (gsl_multifit_linear_alloc _size_t _size_t -> _gsl_multifit_linear_workspace))
 
 (define-gsl-unchecked
-  (gsl_multifit_linear_free _gsl_multifit_linear_workspace -> void))
+  (gsl_multifit_linear_free _gsl_multifit_linear_workspace -> _void))
 
 
 (define-gsl (gsl_multifit_linear _gsl_matrix-pointer _gsl_vector-pointer _gsl_vector-pointer _gsl_matrix-pointer (_box _double) _gsl_multifit_linear_workspace))

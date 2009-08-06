@@ -18,6 +18,7 @@
 |#
 
 (require "low-level/gsl-multifit.ss"
+         "gslvector.ss"
          "matrix.ss")
 
 ;; matrix vector -> vector
@@ -39,3 +40,8 @@
 
   (gsl_multifit_linear_free work)
   (values c cov (unbox chi)))
+
+
+(provide
+ least-squares-multiparameter
+ solve)
