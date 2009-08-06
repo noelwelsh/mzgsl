@@ -49,12 +49,48 @@
 
 (define-gsl-unchecked (gsl_vector_free _gsl_vector-pointer -> _void))
 
-;; Accessors
+;; Accessors and mutators
 
 (define-gsl-unchecked (gsl_vector_get _gsl_vector-pointer _size_t -> _double))
 
 (define-gsl-unchecked (gsl_vector_set _gsl_vector-pointer _size_t _double* -> _void))
 
+(define-gsl-unchecked (gsl_vector_set_all _gsl_vector-pointer _double* -> _void))
+
+(define-gsl-unchecked (gsl_vector_set_zero _gsl_vector-pointer -> _void))
+
+(define-gsl (gsl_vector_set_basis _gsl_vector-pointer _size_t))
+
+;; Copying
+
+(define-gsl (gsl_vector_memcpy _gsl_vector-pointer _gsl_vector-pointer))
+
+(define-gsl (gsl_vector_swap _gsl_vector-pointer _gsl_vector-pointer))
+
+;; Exchanging
+
+(define-gsl (gsl_vector_swap_elements _gsl_vector-pointer _size_t _size_t))
+
+(define-gsl (gsl_vector_reverse _gsl_vector-pointer))
+
+;; Vector operations
+
+(define-gsl (gsl_vector_add _gsl_vector-pointer _gsl_vector-pointer))
+
+(define-gsl (gsl_vector_sub _gsl_vector-pointer _gsl_vector-pointer))
+
+(define-gsl (gsl_vector_mul _gsl_vector-pointer _gsl_vector-pointer))
+
+(define-gsl (gsl_vector_div _gsl_vector-pointer _gsl_vector-pointer))
+
+(define-gsl (gsl_vector_scale _gsl_vector-pointer _double*))
+
+(define-gsl (gsl_vector_add_constant _gsl_vector-pointer _double*))
+
+;; TODO
+;; Reading and writing
+;; Finding min and max elements
+;; Vector properties
 
 (provide
   _gsl_vector
@@ -74,7 +110,24 @@
   gsl_vector_free
 
   gsl_vector_get
-  gsl_vector_set)
+  gsl_vector_set
+
+  gsl_vector_set_all
+  gsl_vector_set_zero
+  gsl_vector_set_basis
+
+  gsl_vector_memcpy
+  gsl_vector_swap
+
+  gsl_vector_swap_elements
+  gsl_vector_reverse
+
+  gsl_vector_add
+  gsl_vector_sub
+  gsl_vector_mul
+  gsl_vector_div
+  gsl_vector_scale
+  gsl_vector_add_constant)
   
  
 

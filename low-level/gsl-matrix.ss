@@ -3,7 +3,8 @@
 (require (only-in scheme/contract flat-named-contract)
          scheme/foreign
          "gsl-lib.ss"
-         "gsl-util.ss")
+         "gsl-util.ss"
+         "gsl-vector.ss")
 
 
 ;;; Type definitions
@@ -11,13 +12,6 @@
 (define-cstruct _gsl_block
   ([size _size_t]
    [data (_f64vector i)]))
-
-(define-cstruct _gsl_vector
-  ([size   _size_t]
-   [stride _size_t]
-   [data   _pointer]
-   [block  _pointer]
-   [owner  _int]))
 
 (define-cstruct _gsl_matrix
   ([rows  _size_t]
@@ -144,21 +138,7 @@
  make-gsl_block
  gsl_block?
  gsl_block-size
- 
- 
- _gsl_vector
- _gsl_vector-pointer
- _gsl_vector-pointer/null
- gsl_vector-tag
- make-gsl_vector
- gsl_vector?
- gsl_vector-size
- gsl_vector-stride
- gsl_vector-data
- gsl_vector-block
- gsl_vector-owner
   
- 
  _gsl_matrix
  _gsl_matrix-pointer
  _gsl_matrix-pointer/null
