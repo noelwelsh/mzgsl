@@ -55,4 +55,14 @@
       (lambda () ((matrix-of-dimensions 2 4) m)))
      (gsl_matrix_free m)))
 
+  (test-case
+   "gsl-matrix stores data block correctly"
+   (define m (gsl_matrix-malloc 4 4))
+   (gsl_matrix_set m 1 1 3.0)
+   (check-= (gsl_matrix_get m 1 1) 3.0 0.0)
+   ;; Do work forcing a GC
+   (for ([i (in-range 10000)])
+        (make-vector i))
+   (check-= (gsl_matrix_get m 1 1) 3.0 0.0))
+
   )

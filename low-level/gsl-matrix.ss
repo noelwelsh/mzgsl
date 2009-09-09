@@ -24,8 +24,9 @@
 ;;; Useful functions
 
 (define (gsl_matrix-malloc r c)
-  (define ptr (malloc _double (* r c)))
+  (define ptr (malloc _double (* r c) 'raw))
   (define m (make-gsl_matrix r c c ptr #f 0))
+  (register-finalizer m (lambda (_) (free ptr)))
   m)
 
 ;; gsl_matrix-unsafe-ref : gsl_matrix natural -> number
