@@ -35,9 +35,10 @@
 ;;; Useful functions
 
 (define (gsl_vector-malloc n)
-  (define ptr (malloc _double n))
-  (define m (make-gsl_vector n 1 ptr #f 0))
-  m)
+  (define ptr (malloc _double n 'raw))
+  (define v (make-gsl_vector n 1 ptr #f 0))
+  (register-finalizer v (lambda (_) (free ptr)))
+  v)
 
 ;;; GSL API
 
