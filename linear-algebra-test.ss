@@ -1,6 +1,7 @@
 #lang scheme/base
 
 (require (planet schematics/schemeunit:3/test)
+         "gslvector.ss"
          "matrix.ss"
          "permutations.ss"
          "linear-algebra.ss")
@@ -133,4 +134,24 @@
          [i (matrix-invert m)])
      (matrix-identity! id)
      (check-matrix= (matrix-product i m) id e)))
+
+  (test-case
+   "matrix-svd"
+   (define c 4)
+   (define m
+     (matrix 5 c  1 2 0 0
+                  0 1 2 0
+                  0 1 0 2
+                  1 0 2 2
+                  3 0 1 1))
+   (define-values (u s v)
+     (matrix-svd m))
+   (define s-matrix
+     (make-matrix c c))
+   ;; Convert s to diagonal matrix
+   (for ([i (in-range c)])
+     (matrix-set! s-matrix i i (gslvector-ref s i)))
+   (let ([reconstructed-m (matrix-product (matrix-product u s-matrix) (matrix-transpose v))])
+     (check-matrix= reconstructed-m m e)))
+
   )

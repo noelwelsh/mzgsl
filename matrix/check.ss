@@ -11,8 +11,8 @@
    (['message (format "Matrix cols ~a and ~a" (matrix-cols m1) (matrix-cols m2))])
    (check-eq? (matrix-cols m1) (matrix-cols m2)))
 
-  (for ([i (in-range (matrix-rows m1))]
-        [j (in-range (matrix-rows m2))])
+  (for* ([i (in-range (matrix-rows m1))]
+         [j (in-range (matrix-cols m2))])
     (let ([x1 (matrix-ref m1 i j)]
           [x2 (matrix-ref m2 i j)])
       (with-check-info

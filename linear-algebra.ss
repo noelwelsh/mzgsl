@@ -1,6 +1,7 @@
 #lang scheme/base
 
 (require "low-level/gsl-linear-algebra.ss"
+         "gslvector.ss"
          "matrix.ss"
          "permutations.ss")
 
@@ -54,6 +55,17 @@
   (define-values (lu p s) (matrix-lu m))
   (matrix-lu-invert lu p))
 
+;; matrix -> (values matrix matrix vector)
+(define (matrix-svd m)
+  (define c (matrix-cols m))
+  (define m2 (matrix-copy m))
+  (define v (make-matrix c c))
+  (define s (make-gslvector c))
+  (define work (make-gslvector c))
+
+  (gsl_linalg_SV_decomp m2 v s work)
+  (values m2 s v))
+
 (provide
  matrix-cholesky!
  matrix-cholesky-invert!
@@ -70,4 +82,6 @@
  matrix-lu-invert
  matrix-lu-determinant
 
- matrix-invert)
+ matrix-invert
+
+ matrix-svd)
