@@ -4,11 +4,22 @@
          "base.ss"
          "constructors.ss")
 
+(define (matrix-square? m)
+  (= (matrix-rows m) (matrix-cols m)))
+
 (define matrix-transpose! gsl_matrix_transpose)
 (define (matrix-transpose m)
-  (define m2 (matrix-copy m))
-  (matrix-transpose! m2)
-  m2)
+  (if (matrix-square? m)
+      (let ([m2 (matrix-copy m)])
+        (matrix-transpose! m2)
+        m2)
+      (let* ([rows (matrix-rows m)]
+             [cols (matrix-cols m)]
+             [m2 (make-matrix cols rows)])
+        (for* ([r (in-range cols)]
+               [c (in-range rows)])
+          (matrix-set! m2 r c (matrix-ref m c r)))
+        m2)))
 
 ;;; Matrix-matrix elementwise
 
@@ -64,7 +75,9 @@
   (matrix/s! m1 s)
   m1)
 
-(provide matrix-transpose!
+(provide matrix-square?
+
+         matrix-transpose!
          matrix-transpose
 
          matrix+!
